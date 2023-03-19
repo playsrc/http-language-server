@@ -17,6 +17,10 @@ import {
   TextDocumentPositionParams,
   TextDocumentSyncKind,
   InitializeResult,
+  Hover,
+  MarkupContent,
+  MarkupKind,
+  Position,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -56,6 +60,7 @@ connection.onInitialize((params: InitializeParams) => {
       completionProvider: {
         resolveProvider: true,
       },
+      hoverProvider: true,
     },
   };
   if (hasWorkspaceFolderCapability) {
@@ -192,6 +197,58 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 connection.onDidChangeWatchedFiles((_change) => {
   // Monitored files have change in VSCode
   connection.console.log("We received an file change event");
+});
+
+// Register a callback function for the 'textDocument/hover' method
+connection.onHover((params: TextDocumentPositionParams): Hover => {
+  // Get the text document corresponding to the given URI
+  const document = documents.get(params.textDocument.uri);
+  if (!document) {
+    // If the document was not found, return an empty Hover object
+    return { contents: [] };
+  }
+
+  const statusRegex = /\d{3}/gm;
+  const numberRegex = /\d/gm;
+
+  const start: Position = {
+    line: params.position.line,
+    character: params.position.character,
+  };
+
+  const end: Position = {
+    line: start.line,
+    character: start.character + 3,
+  };
+
+  // Get the text content of the document
+  let underCursor = document.getText({ start, end });
+
+  if (!underCursor.match(numberRegex)) {
+    return { contents: [] };
+  }
+
+  while (!underCursor.match(statusRegex)) {
+    start.character--;
+    end.character--;
+
+    underCursor = document.getText({ start, end });
+  }
+
+  console.log(underCursor);
+
+  const markdown: MarkupContent = {
+    kind: MarkupKind.Markdown,
+    value: [
+      `### ${underCursor}\n`,
+      "The request succeeded, and a new resource was created as a result. This is typically the response sent after POST requests, or some PUT requests.",
+    ].join("\n"),
+  };
+
+  // Return a Hover object with the word as the content
+  return {
+    contents: markdown,
+  };
 });
 
 // This handler provides the initial list of the completion items.
