@@ -5,22 +5,22 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 import {
-  createConnection,
-  TextDocuments,
-  Diagnostic,
-  DiagnosticSeverity,
-  ProposedFeatures,
-  InitializeParams,
-  DidChangeConfigurationNotification,
   CompletionItem,
   CompletionItemKind,
-  TextDocumentPositionParams,
-  TextDocumentSyncKind,
-  InitializeResult,
+  createConnection,
+  Diagnostic,
+  DiagnosticSeverity,
+  DidChangeConfigurationNotification,
   Hover,
+  InitializeParams,
+  InitializeResult,
   MarkupContent,
   MarkupKind,
   Position,
+  ProposedFeatures,
+  TextDocumentPositionParams,
+  TextDocuments,
+  TextDocumentSyncKind,
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
@@ -199,6 +199,34 @@ connection.onDidChangeWatchedFiles((_change) => {
   connection.console.log("We received an file change event");
 });
 
+const mockData = [
+  {
+    code: "100",
+    title: "100 Continue",
+    description:
+      "This interim response indicates that the client should continue the request or ignore the response if the request is already finished.",
+    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/100",
+  },
+  {
+    code: "101",
+    title: "101 Switching Protocols",
+    description:
+      "This code is sent in response to an [Upgrade](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade) request header from the client and indicates the protocol the server is switching to.",
+    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/101",
+  },
+  {
+    code: "200",
+    title: "200 OK",
+    description:
+      "The request succeeded. The result meaning of 'success' depends on the HTTP method:\n \
+        `GET`: The resource has been fetched and transmitted in the message body.\n  \
+        `HEAD`: The representation headers are included in the response without any message body.\n \
+        `PUT` or `POST`: The resource describing the result of the action is transmitted in the message body.\n \
+        `TRACE`: The message body contains the request message as received by the server.\n",
+    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200",
+  },
+];
+
 // Register a callback function for the 'textDocument/hover' method
 connection.onHover((params: TextDocumentPositionParams): Hover => {
   // Get the text document corresponding to the given URI
@@ -235,13 +263,18 @@ connection.onHover((params: TextDocumentPositionParams): Hover => {
     underCursor = document.getText({ start, end });
   }
 
-  console.log(underCursor);
+  const status = mockData.find((s) => s.code === underCursor);
+
+  if (!status) {
+    return { contents: [] };
+  }
 
   const markdown: MarkupContent = {
     kind: MarkupKind.Markdown,
     value: [
-      `### ${underCursor}\n`,
-      "The request succeeded, and a new resource was created as a result. This is typically the response sent after POST requests, or some PUT requests.",
+      `### ${status.title}\n`,
+      `${status.description}\n\n`,
+      `[MDN Source](${status.source})`
     ].join("\n"),
   };
 
