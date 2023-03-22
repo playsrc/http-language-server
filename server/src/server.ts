@@ -24,6 +24,7 @@ import {
 } from "vscode-languageserver/node";
 
 import { TextDocument } from "vscode-languageserver-textdocument";
+import * as codes from "./codes.json";
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -199,34 +200,6 @@ connection.onDidChangeWatchedFiles((_change) => {
   connection.console.log("We received an file change event");
 });
 
-const mockData = [
-  {
-    code: "100",
-    title: "100 Continue",
-    description:
-      "This interim response indicates that the client should continue the request or ignore the response if the request is already finished.",
-    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/100",
-  },
-  {
-    code: "101",
-    title: "101 Switching Protocols",
-    description:
-      "This code is sent in response to an [Upgrade](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade) request header from the client and indicates the protocol the server is switching to.",
-    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/101",
-  },
-  {
-    code: "200",
-    title: "200 OK",
-    description:
-      "The request succeeded. The result meaning of 'success' depends on the HTTP method:\n \
-        `GET`: The resource has been fetched and transmitted in the message body.\n  \
-        `HEAD`: The representation headers are included in the response without any message body.\n \
-        `PUT` or `POST`: The resource describing the result of the action is transmitted in the message body.\n \
-        `TRACE`: The message body contains the request message as received by the server.\n",
-    source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200",
-  },
-];
-
 // Register a callback function for the 'textDocument/hover' method
 connection.onHover((params: TextDocumentPositionParams): Hover => {
   // Get the text document corresponding to the given URI
@@ -263,7 +236,7 @@ connection.onHover((params: TextDocumentPositionParams): Hover => {
     underCursor = document.getText({ start, end });
   }
 
-  const status = mockData.find((s) => s.code === underCursor);
+  const status = codes.find((s) => s.Value.toString() === underCursor);
 
   if (!status) {
     return { contents: [] };
@@ -271,11 +244,7 @@ connection.onHover((params: TextDocumentPositionParams): Hover => {
 
   const markdown: MarkupContent = {
     kind: MarkupKind.Markdown,
-    value: [
-      `### ${status.title}\n`,
-      `${status.description}\n\n`,
-      `[MDN Source](${status.source})`
-    ].join("\n"),
+    value: [`### ${status.Description}\n`, `${status.Reference}\n`].join("\n"),
   };
 
   // Return a Hover object with the word as the content
