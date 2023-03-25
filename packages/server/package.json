@@ -1,6 +1,6 @@
 {
   "name": "http-language-server",
-  "description": "A HTTP language server",
+  "description": "The HTTP Language Server",
   "version": "0.0.0",
   "author": "Mateus Abelli",
   "publisher": "mateusabelli",
