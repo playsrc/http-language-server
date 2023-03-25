@@ -40,7 +40,10 @@ function hoverProvider(params, documents) {
 
   const markdown = {
     kind: MarkupKind.Markdown,
-    value: [`### ${status.Description}\n`, `${status.Reference}\n`].join("\n"),
+    value: [
+      `### ${status.Value} ${status.Description}\n`,
+      `${status.Reference}\n`,
+    ].join("\n"),
   };
 
   return {
