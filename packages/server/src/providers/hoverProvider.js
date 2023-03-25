@@ -1,24 +1,7 @@
-#!/usr/bin/env node
+const codes = require("../docs/codes.json");
+const { MarkupKind } = require("vscode-languageserver/node");
 
-const { TextDocument } = require("vscode-languageserver-textdocument");
-const {
-  createConnection,
-  TextDocuments,
-  MarkupKind,
-} = require("vscode-languageserver/node");
-
-const codes = require("./codes.json");
-
-const connection = createConnection();
-const documents = new TextDocuments(TextDocument);
-
-connection.onInitialize(() => ({
-  capabilities: {
-    hoverProvider: true,
-  },
-}));
-
-connection.onHover((params) => {
+function hoverProvider(params, documents) {
   const document = documents.get(params.textDocument.uri);
 
   if (!document) {
@@ -63,7 +46,6 @@ connection.onHover((params) => {
   return {
     contents: markdown,
   };
-});
+}
 
-documents.listen(connection);
-connection.listen();
+module.exports = { hoverProvider };

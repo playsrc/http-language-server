@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "http-language-server",
   "description": "A HTTP language server",
   "version": "0.0.0",
   "author": "Mateus Abelli",
@@ -9,9 +9,7 @@
     "type": "git",
     "url": "https://github.com/mateusabelli/http-language-server"
   },
-  "bin": {
-    "http-language-server": "./server.js"
-  },
+  "bin": "./cli.js",
   "keywords": [
     "http, lsp, http-language-server"
   ],
