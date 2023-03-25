@@ -7,8 +7,10 @@ importers:
 
   packages/client:
     specifiers:
+      http-language-server: workspace:*
       vscode-languageclient: ^8.1.0
     dependencies:
+      http-language-server: link:../server
       vscode-languageclient: 8.1.0
 
   packages/server:

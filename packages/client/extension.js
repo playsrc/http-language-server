@@ -1,7 +1,10 @@
+const path = require("path");
 const { LanguageClient, TransportKind } = require("vscode-languageclient/node");
 
 function activate(context) {
-  const serverModule = context.asAbsolutePath("../server/server.js");
+  const serverModule = context.asAbsolutePath(
+    path.join("node_modules", "http-language-server", "src", "server.js")
+  );
   const debugOptions = { execArgv: ["--nolazy", "--inspect=6009"] };
 
   console.log("RUNNING");

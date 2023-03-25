@@ -22,6 +22,7 @@
     "onLanguage:plaintext"
   ],
 	"dependencies": {
-		"vscode-languageclient": "^8.1.0"
+		"vscode-languageclient": "^8.1.0",
+    "http-language-server": "workspace:*"
 	}
 }
