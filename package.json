@@ -1,9 +1,7 @@
 {
 	"name": "http-language-server-monorepo",
 	"description": "The HTTP Language Server Monorepo",
-	"version": "0.0.0",
 	"author": "Mateus Abelli",
-	"publisher": "mateusabelli",
 	"license": "MIT",
 	"scripts": {
 		"server": "pnpm --filter {./packages/server}",
