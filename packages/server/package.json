@@ -1,7 +1,7 @@
 {
   "name": "http-language-server",
   "description": "The HTTP Language Server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Mateus Abelli",
   "license": "MIT",
   "repository": {
