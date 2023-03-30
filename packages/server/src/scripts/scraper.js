@@ -32,7 +32,9 @@ async function headers() {
     })
   );
 
-  const content = JSON.stringify(data, null, 2);
+  // Slice the empty results at the start and end
+  // Should start with "Authentication" and end with "Others"
+  const content = JSON.stringify(data.slice(2, -2), null, 2);
   fs.writeFileSync(__dirname + '/../docs/headers.json', content);
 
   await browser.close();
@@ -101,8 +103,15 @@ async function status() {
     })
   );
 
-  const content = JSON.stringify(data, null, 2);
+  // Slice the empty results at the start and end
+  // Should start with "Information responses" and end with "Server error responses"
+  const content = JSON.stringify(data.slice(2, -1), null, 2);
   fs.writeFileSync(__dirname + '/../docs/status.json', content);
 
   await browser.close();
 }
+
+// Call each functions individually with caution, do not disturb MDN
+// headers()
+// methods()
+// status()
