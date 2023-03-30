@@ -5,7 +5,7 @@
 
 ## Summary 
 
-The **HTTP Language Server** is a language agnostic [LSP](https://microsoft.github.io/language-server-protocol/) that helps you while writing your HTTP requests and responses. At the moment it only supports hover documentation on all official status codes, but there are many features planned to be released soon.
+The **HTTP Language Server** is a [LSP](https://microsoft.github.io/language-server-protocol/) that helps you while writing your HTTP codes and messages. At the moment it only supports hover documentation on all official status codes, but there are many features planned to be released soon.
 
 In this early stages, breaking changes will occur frequently, so it's important that if want to use this server and it's extension, to use it with caution and please report any bugs that you might encounter. 
 
@@ -95,6 +95,13 @@ require('lspconfig')['http_language_server'].setup({
   on_attach = on_attach
 })
 ```
+
+## References
+
+- https://www.iana.org/
+- https://developer.mozilla.org/en-US/docs/Web/HTTP
+- https://github.com/grahambates/m68k-lsp
+- https://github.com/aca/emmet-ls
 
 ## License
 
