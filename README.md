@@ -1,5 +1,9 @@
 # HTTP Language Server
 
+![npm](https://img.shields.io/npm/dt/http-language-server)
+![npm](https://img.shields.io/npm/v/http-language-server)
+[![NPM Package](https://github.com/mateusabelli/http-language-server/actions/workflows/publish.yml/badge.svg)](https://github.com/mateusabelli/http-language-server/actions/workflows/publish.yml)
+
 > **Warning**
 > This project is under development.
 
