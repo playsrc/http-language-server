@@ -1,7 +1,7 @@
 {
   "name": "http-language-server",
   "description": "The HTTP Language Server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Mateus Abelli",
   "license": "MIT",
   "bin": "./src/cli.js",
