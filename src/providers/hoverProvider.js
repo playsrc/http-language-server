@@ -1,4 +1,4 @@
-const codes = require("../docs/codes.json");
+const codes = require("../docs/status.json");
 const { MarkupKind } = require("vscode-languageserver/node");
 
 function hoverProvider(params, documents) {
@@ -32,7 +32,21 @@ function hoverProvider(params, documents) {
     underCursor = document.getText({ start, end });
   }
 
-  const status = codes.find((s) => s.Value.toString() === underCursor);
+  let status;
+
+  codes.forEach((entry) => {
+    const foundStatus = entry.content.find(
+      (s) => s.code.split(" ")[0] === underCursor
+    );
+    if (foundStatus) {
+      status = {
+        code: foundStatus.code,
+        category: entry.category,
+        description: foundStatus.description.replace(/\s+/g, " ").trim(),
+        source: foundStatus.source,
+      };
+    }
+  });
 
   if (!status) {
     return { contents: [] };
@@ -41,8 +55,11 @@ function hoverProvider(params, documents) {
   const markdown = {
     kind: MarkupKind.Markdown,
     value: [
-      `### ${status.Value} ${status.Description}\n`,
-      `${status.Reference}\n`,
+      `### ${status.code}\n`,
+      `---`,
+      `*${status.category}*\n`,
+      `${status.description}\n`,
+      `[MDN Reference](${status.source})\n`,
     ].join("\n"),
   };
 
