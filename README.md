@@ -1,13 +1,23 @@
 # HTTP Language Server
 
 > **Warning**
-> This is a work in progress.
+> This project is under development.
 
 ## Summary 
 
 The **HTTP Language Server** is a [LSP](https://microsoft.github.io/language-server-protocol/) that helps you while writing your HTTP codes and messages. At the moment it only supports hover documentation on all official status codes, but there are many features planned to be released soon.
 
-In this early stages, breaking changes will occur frequently, so it's important that if want to use this server and it's extension, to use it with caution and please report any bugs that you might encounter. 
+In this early stages, breaking changes will occur frequently, so it's important that if want to use this server, to use it with caution and please report any bugs that you might encounter. 
+
+## Installation
+
+```sh
+# Install the package
+npm install -g http-language-server
+
+# Run it in your LSP client
+http-language-server --stdio
+```
 
 ## Development
 
@@ -20,54 +30,18 @@ git clone https://github.com/mateusabelli/http-language-server.git
 
 cd http-language-server
 
-pnpm install
-```
-### How to...
-
-#### Use the monorepo
-
-```sh
-pnpm run server <cmd>
-pnpm run client <cmd>
-
-# example
-pnpm run server install typescript
+npm install
 ```
 
-#### Run it in Visual Studio Code
+**How to run it in Neovim**
 
-After having the dependencies installed you can simply click on the **Run and Debug** menu located in your side bar. Select **Launch Client** and click **Start Debugging** or press **F5**.
+After having the dependencies installed you will need to have a working LSP setup in Neovim using [lspconfig](https://github.com/neovim/nvim-lspconfig). Then you will need to follow lspconfig's [Contributing](https://github.com/neovim/nvim-lspconfig#contributions) guide to manually add this server configuration.
 
-> **Note**
-> For simplicity of the development, the extension attach the server only to `plaintext` file formats by default.
-
-**Add more file formats**
-```javascript
-// packages/client/extension.js
-const clientOptions = {
-  documentSelector: [
-    { scheme: "file", language: "plaintext" },
-    { scheme: "file", language: "javascript" }, // <-- Add here 
-  ],
-};
-
-// packages/client/package.json
-{
-  "activationEvents": [
-    "onLanguage:plaintext",
-    "onLanguage:javascript" // <-- Add here
-  ],
-}
-```
-
-#### Run it in Neovim
-
-After having the dependencies installed you will need to have a working LSP setup in Neovim using [lspconfig](https://github.com/neovim/nvim-lspconfig). Then you will to follow lspconfig's [Contributing](https://github.com/neovim/nvim-lspconfig#contributions) guide to manually add this server configuration.
-
-Here is the config file
+The config file: 
 `lua/lspconfig/server_configurations/http-language-server.lua`
 
 ```lua
+-- http-language-server.lua
 local util = require 'lspconfig.util'
 
 local bin_name = 'http-language-server'
@@ -105,6 +79,4 @@ require('lspconfig')['http_language_server'].setup({
 
 ## License
 
-HTTP Language Server is licensed under the terms of the MIT license.
-
-See [LICENSE.md](./LICENSE.md)
+HTTP Language Server is licensed under the terms of the **MIT** license. See [LICENSE.md](./LICENSE.md)
