@@ -1,10 +1,34 @@
 {
-	"name": "http-language-server-monorepo",
-	"description": "The HTTP Language Server Monorepo",
-	"author": "Mateus Abelli",
-	"license": "MIT",
-	"scripts": {
-		"server": "pnpm --filter {./packages/server}",
-		"client": "pnpm --filter {./packages/client}"
-	}
+  "name": "http-language-server",
+  "description": "The HTTP Language Server",
+  "version": "0.0.2",
+  "author": "Mateus Abelli",
+  "license": "MIT",
+  "bin": "./src/cli.js",
+  "files": [
+    "./src/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mateusabelli/http-language-server"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mateusabelli"
+    }
+  ],
+  "keywords": [
+    "http",
+    "lsp",
+    "http-language-server",
+    "language server"
+  ],
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8"
+  }
 }
