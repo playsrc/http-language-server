@@ -1,7 +1,7 @@
-const codes = require("../docs/status.json");
+const codes = require("../../docs/status.json");
 const { MarkupKind } = require("vscode-languageserver/node");
 
-function hoverProvider(params, documents) {
+function status(params, documents) {
   const document = documents.get(params.textDocument.uri);
 
   if (!document) {
@@ -68,4 +68,4 @@ function hoverProvider(params, documents) {
   };
 }
 
-module.exports = { hoverProvider };
+module.exports = { status };
