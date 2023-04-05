@@ -1,4 +1,4 @@
-const { hoverProvider } = require("./providers/hoverProvider");
+const { hoverProvider } = require("./providers/hover");
 const { TextDocument } = require("vscode-languageserver-textdocument");
 const {
   createConnection,
