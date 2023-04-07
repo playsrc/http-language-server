@@ -1,0 +1,30 @@
+name: E2E Test
+
+on:
+  push:
+    branches: [ "disabled-workflow" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Set the display variable to enable GUI testing
+      DISPLAY: ":99"
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libgtk-3-0 libgbm-dev
+    - name: Start Xvfb
+      run: |
+        # Start Xvfb on the display 99
+        Xvfb :99 -screen 0 1280x720x24 -ac &
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run compile
+    - run: xvfb-run -a npm test
