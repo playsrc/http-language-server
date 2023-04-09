@@ -14,7 +14,8 @@ import {
 	CompletionItemKind,
 	TextDocumentPositionParams,
 	TextDocumentSyncKind,
-	InitializeResult
+	InitializeResult,
+	MarkupKind
 } from 'vscode-languageserver/node';
 
 import {
@@ -55,7 +56,8 @@ connection.onInitialize((params: InitializeParams) => {
 			// Tell the client that this server supports code completion.
 			completionProvider: {
 				resolveProvider: true
-			}
+			},
+			hoverProvider: true,
 		}
 	};
 	if (hasWorkspaceFolderCapability) {
@@ -140,7 +142,8 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	const text = textDocument.getText();
-	const pattern = /\b[A-Z]{2,}\b/g;
+	// const pattern = /\b[A-Z]{2,}\b/g;
+	const pattern = /\b(?!GET|POST)[A-Z]{3,7}\b/g;
 	let m: RegExpExecArray | null;
 
 	let problems = 0;
@@ -148,13 +151,13 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	while ((m = pattern.exec(text)) && problems < settings.maxNumberOfProblems) {
 		problems++;
 		const diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Warning,
+			severity: DiagnosticSeverity.Hint,
 			range: {
 				start: textDocument.positionAt(m.index),
 				end: textDocument.positionAt(m.index + m[0].length)
 			},
-			message: `${m[0]} is all uppercase.`,
-			source: 'ex'
+			message: `${m[0]} is not a POST or GET method.`,
+			source: 'HTTP Language Server'
 		};
 		if (hasDiagnosticRelatedInformationCapability) {
 			diagnostic.relatedInformation = [
@@ -194,13 +197,13 @@ connection.onCompletion(
 		// info and always provide the same completion items.
 		return [
 			{
-				label: 'TypeScript',
-				kind: CompletionItemKind.Text,
+				label: 'GET',
+				kind: CompletionItemKind.Constant,
 				data: 1
 			},
 			{
-				label: 'JavaScript',
-				kind: CompletionItemKind.Text,
+				label: 'POST',
+				kind: CompletionItemKind.Constant,
 				data: 2
 			}
 		];
@@ -212,15 +215,65 @@ connection.onCompletion(
 connection.onCompletionResolve(
 	(item: CompletionItem): CompletionItem => {
 		if (item.data === 1) {
-			item.detail = 'TypeScript details';
-			item.documentation = 'TypeScript documentation';
+			item.detail = 'GET details';
+			item.documentation = 'The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.';
 		} else if (item.data === 2) {
-			item.detail = 'JavaScript details';
-			item.documentation = 'JavaScript documentation';
+			item.detail = 'POST details';
+			item.documentation = 'The POST method submits an entity to the specified resource, often causing a change in state or side effects on the server.';
 		}
 		return item;
 	}
 );
+
+connection.onHover((params) => {
+	const textDocument = documents.get(params.textDocument.uri);
+	if (!textDocument) {
+		return { contents: [] };
+	}
+
+	const position = params.position;
+	const offset = textDocument.offsetAt(position);
+	const text = textDocument.getText();
+
+	const wordRegExp = /(\w+)/g;
+	let match;
+	while ((match = wordRegExp.exec(text))) {
+		const startOffset = match.index;
+		const endOffset = startOffset + match[0].length;
+		if (startOffset <= offset && offset < endOffset) {
+			const word = match[0];
+			if (word === 'POST') {
+				return {
+					contents: {
+						kind: MarkupKind.Markdown,
+						value: [
+							"### POST Method\n",
+							"---",
+							"The `POST` method submits an entity to the specified resource, often causing a change in state or side effects on the server.\n",
+							"[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)\n",
+						].join("\n"),
+					}
+				};
+			}
+
+			if (word === 'GET') {
+				return {
+					contents: {
+						kind: MarkupKind.Markdown,
+						value: [
+							"### GET Method\n",
+							"---",
+							"The `GET` method requests a representation of the specified resource. Requests using GET should only retrieve data.",
+							"[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET)\n",
+						].join("\n"),
+					}
+				};
+			}
+		}
+	}
+
+	return { contents: [] };
+});
 
 // Make the text document manager listen on the connection
 // for open, change and close text document events
