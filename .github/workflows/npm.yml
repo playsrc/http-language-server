@@ -1,10 +1,10 @@
-# TODO: FIX ME BEFORE ANY RELEASES!
+# TODO: Maybe it should run some tests before publishing
 
 name: NPM Package
 
 on:
-  push:
-    branches: [ "disabled-workflow" ]
+  release:
+    types: [created]
 
 jobs:
   build:

@@ -2,7 +2,7 @@ name: E2E Test
 
 on:
   push:
-    branches: [ "disabled-workflow" ]
+    branches: [ "main" ]
 
 jobs:
   build:
