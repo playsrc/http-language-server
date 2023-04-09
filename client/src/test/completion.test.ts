@@ -13,8 +13,8 @@ suite('Should do completion', () => {
 	test('Completes JS/TS in txt file', async () => {
 		await testCompletion(docUri, new vscode.Position(0, 0), {
 			items: [
-				{ label: 'JavaScript', kind: vscode.CompletionItemKind.Text },
-				{ label: 'TypeScript', kind: vscode.CompletionItemKind.Text }
+				{ label: 'GET', kind: vscode.CompletionItemKind.Constant },
+				{ label: 'POST', kind: vscode.CompletionItemKind.Constant },
 			]
 		});
 	});

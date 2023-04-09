@@ -12,9 +12,8 @@ suite('Should get diagnostics', () => {
 
 	test('Diagnoses uppercase texts', async () => {
 		await testDiagnostics(docUri, [
-			{ message: 'ANY is all uppercase.', range: toRange(0, 0, 0, 3), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'ANY is all uppercase.', range: toRange(0, 14, 0, 17), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' },
-			{ message: 'OS is all uppercase.', range: toRange(0, 18, 0, 20), severity: vscode.DiagnosticSeverity.Warning, source: 'ex' }
+			{ message: 'ABC is not a POST or GET method.', range: toRange(0, 0, 0, 3), severity: vscode.DiagnosticSeverity.Hint, source: 'HTTP Language Server' },
+			{ message: 'DEF is not a POST or GET method.', range: toRange(0, 12, 0, 15), severity: vscode.DiagnosticSeverity.Hint, source: 'HTTP Language Server' },
 		]);
 	});
 });
