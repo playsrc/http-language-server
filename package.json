@@ -43,7 +43,26 @@
 					"description": "Traces the communication between VS Code and the language server."
 				}
 			}
-		}
+		},
+		"languages": [
+			{
+				"id": "HTTP",
+				"aliases": [
+					"HTTP"
+				],
+				"extensions": [
+					".http"
+				],
+				"configuration": "./syntax/language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "HTTP",
+				"scopeName": "source.HTTP",
+				"path": "./syntax/http.tmLanguage.json"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

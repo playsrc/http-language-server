@@ -1,0 +1,25 @@
+{
+	"name": "HTTP",
+	"scopeName": "source.HTTP",
+	"fileTypes": [
+		"HTTP"
+	],
+	"patterns": [
+		{
+			"name": "variable.other",
+			"match": "([a-zA-Z0-9_-]+)(:|=)"
+		},
+		{
+			"name": "constant.numeric",
+			"match": "\\d"
+		},
+		{
+			"name": "keyword.other.uppercase",
+			"match": "\\b[A-Z]{3,7}\\b"
+		},
+		{
+			"name": "string",
+			"match": "\\S"
+		}
+	]
+}
