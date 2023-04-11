@@ -9,9 +9,9 @@
 
 ## Summary 
 
-The **HTTP Language Server** is a [LSP](https://microsoft.github.io/language-server-protocol/) that helps you while writing your HTTP codes and messages. At the moment it only supports hover documentation on all official status codes, but there are many features planned to be released soon.
+The **HTTP Language Server** is a [LSP](https://microsoft.github.io/language-server-protocol/) that helps you while writing your HTTP codes and messages. 
 
-In this early stages, breaking changes will occur frequently, so it's important that if want to use this server, to use it with caution and please report any bugs that you might encounter. 
+In these early stages, breaking changes will occur frequently, so it's important that if want to use this server, to use it with caution and please report any bugs that you might encounter. 
 
 ## Installation
 
