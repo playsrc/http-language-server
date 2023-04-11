@@ -2,7 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "disabled-workflow" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   compile_and_lint:
