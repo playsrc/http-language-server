@@ -33,6 +33,40 @@
 				"${workspaceRoot}/client/testFixture"
 			],
 			"outFiles": ["${workspaceRoot}/client/out/test/**/*.js"]
-		}
+		},
+        {
+            "name": "Launch Python Client",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
+            "outFiles": ["${workspaceRoot}/client-py/out/**/*.js"],
+            "preLaunchTask": {
+                "type": "npm",
+                "script": "compile"
+            },
+            "env": {
+                "VSCODE_DEBUG_MODE": "true"
+            }
+        },
+        {
+            "name": "Launch Python Server",
+            "type": "python",
+            "request": "launch",
+            "module": "server-py",
+            // "args": ["--tcp"],
+            "justMyCode": false,
+            "python": "${command:python.interpreterPath}",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Py Server + Py Client",
+            "configurations": ["Launch Python Server", "Launch Python Client"]
+        }
 	]
 }
