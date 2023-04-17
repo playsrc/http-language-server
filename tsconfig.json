@@ -16,6 +16,7 @@
 	],
 	"references": [
 		{ "path": "./client" },
+		{ "path": "./client-py" },
 		{ "path": "./server" }
 	]
 }
