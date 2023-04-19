@@ -2,58 +2,27 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-		{
-			"type": "extensionHost",
-			"request": "launch",
-			"name": "Launch Client",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-			"outFiles": ["${workspaceRoot}/client/out/**/*.js"],
-			"preLaunchTask": {
-				"type": "npm",
-				"script": "watch"
-			}
-		},
-		{
-			"type": "node",
-			"request": "attach",
-			"name": "Attach to Server",
-			"port": 6009,
-			"restart": true,
-			"outFiles": ["${workspaceRoot}/server/out/**/*.js"]
-		},
-		{
-			"name": "Language Server E2E Test",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceRoot}",
-				"--extensionTestsPath=${workspaceRoot}/client/out/test/index",
-				"${workspaceRoot}/client/testFixture"
-			],
-			"outFiles": ["${workspaceRoot}/client/out/test/**/*.js"]
-		},
         {
-            "name": "Launch Python Client",
+            "name": "Launch Client",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-            "outFiles": ["${workspaceRoot}/client-py/out/**/*.js"],
-            "preLaunchTask": {
-                "type": "npm",
-                "script": "compile"
-            },
+            "outFiles": ["${workspaceRoot}/client/out/**/*.js"],
+			"preLaunchTask": {
+				"type": "npm",
+				"script": "compile",
+				"path": "client"
+			},
             "env": {
                 "VSCODE_DEBUG_MODE": "true"
             }
         },
         {
-            "name": "Launch Python Server",
+            "name": "Launch Server",
             "type": "python",
             "request": "launch",
-            "module": "server-py",
+            "module": "server",
             // "args": ["--tcp"],
             "justMyCode": false,
             "python": "${command:python.interpreterPath}",
@@ -65,8 +34,8 @@
     ],
     "compounds": [
         {
-            "name": "Py Server + Py Client",
-            "configurations": ["Launch Python Server", "Launch Python Client"]
+            "name": "Server + Client",
+            "configurations": ["Launch Server", "Launch Client"]
         }
 	]
 }
