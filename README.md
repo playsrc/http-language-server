@@ -13,28 +13,57 @@ Contributions are welcome! Please create an [Issue](https://github.com/mateusabe
 
 ### Project Setup
 
-```sh
-git clone https://github.com/mateusabelli/http-language-server.git
+  ```sh
+  # Clone the repository
+  git clone https://github.com/mateusabelli/http-language-server.git
 
-cd http-language-server
-```
+  # Navigate to the project folder
+  cd http-language-server
+  ```
 
 ### Server Setup
 
-1. Create a new virtual environment: `python -m venv venv`
-2. Install the required dependencies: `python -m pip install -r requirements.txt`
-3. Create `.vscode/settings.json` file and set `python.interpreterPath` to point to your python environment where `pygls` is installed
+  ```sh
+  # Navigate to the server folder
+  cd server/
 
+  # Create a new virtual environment
+  python -m venv venv
+
+  # Activate the environment
+  source venv/bin/activate
+
+  # Install the required dependencies
+  python -m pip install -r requirements.txt
+  ```
+
+Create `.vscode/settings.json` file and set `python.interpreterPath` to point to your python environment where `pygls` is installed.
+
+```json
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/server/venv/bin/python"
+}
+```
+
+-  Switch to the **Run and Debug** View in the Sidebar (Ctrl+Shift+D).
+-  Select `Launch Server` from the drop down.
+- Press **▷** to run the launch config (F5).
 
 ### Client Setup
 
 #### VSCode
 
-1. Run `npm install` in this folder. This installs all necessary npm modules
-2. Open VS Code on this folder.
-3. Switch to the **Run and Debug** View in the Sidebar (Ctrl+Shift+D).
-4. Select `Launch Client` from the drop down (if it is not already).
-5. Press **▷** to run the launch config (F5).
+  ```sh
+  # Navigate to the client folder
+  cd client/
+
+  # Install the required dependencies
+  npm install
+  ```
+
+-  Switch to the **Run and Debug** View in the Sidebar (Ctrl+Shift+D).
+-  Select `Launch Client` from the drop down.
+- Press **▷** to run the launch config (F5).
 
 #### Other Editors
 
@@ -170,7 +199,7 @@ Then you can activate this server in the lua file that you use to setup all the 
 
 ## Troubleshooting
 
-If you encounter any issues while using the HTTP Language Server Extension, please check the following:
+If you encounter any issues while using the HTTP Language Server, please check the following:
 
 - Ensure that you have installed all of the required dependencies and have set up your environment correctly.
 - Check the documentation and issue tracker for common problems and their solutions.
