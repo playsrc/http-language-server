@@ -190,6 +190,7 @@ Then you can activate this server in the lua file that you use to setup all the 
 
 ## References
 
+- https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample
 - https://github.com/openlawlibrary/pygls/tree/master/examples
 - https://github.com/regen100/cmake-language-server
 - https://www.iana.org/
