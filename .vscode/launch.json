@@ -23,7 +23,7 @@
             "type": "python",
             "request": "launch",
             "module": "server",
-            // "args": ["--tcp"],
+            "args": ["--stdio"],
             "justMyCode": false,
             "python": "${command:python.interpreterPath}",
             "cwd": "${workspaceFolder}",
