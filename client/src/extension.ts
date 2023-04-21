@@ -13,10 +13,10 @@ export function activate(context: ExtensionContext): void {
 	console.log("CLIENT RUNNING!");
 
 	const serverOptions: ServerOptions = {
-        args: ["-m", "server"],
-        command: "python",
+        args: ["-m", "server", "--stdio"],
+        command: path.join(__dirname, "..",  "../server/venv/bin/python"),
         options: {
-            cwd: path.join(__dirname, "..",  "../server"),
+            cwd: path.join(__dirname, "..", ".."),
         }
 	};
 
