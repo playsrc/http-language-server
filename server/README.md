@@ -12,6 +12,25 @@ The HTTP Language Server was created to address the need for an efficient and re
 2. Install the required dependencies: `python -m pip install -r requirements.txt`
 3. Create `.vscode/settings.json` file and set `python.interpreterPath` to point to your python environment where `pygls` is installed
 
+## CLI
+
+HTTP Language Server includes a built in CLI that offers many options for different connection methods and an option for dumping debug logs while the server is running.
+
+```
+usage: __main__.py [-h] [--stdio | --tcp] [--silent] [--debug] [--host <ip>] [--port <number>]
+
+HTTP Language Server
+
+options:
+  -h, --help       show this help message and exit
+  --stdio          start the server using stdio
+  --tcp            start the server using tcp
+  --silent         hide start log messages
+  --debug          write debug logs to httpls.log file
+  --host <ip>      host <ip> address for tcp connection, default: 127.0.0.1
+  --port <number>  port <number> for tcp connection, default: 2087
+```
+
 ## Development
 
 Contributions are welcome! Please create an [Issue](https://github.com/mateusabelli/http-language-server/issues) or [Pull Request](https://github.com/mateusabelli/http-language-server/pulls) if you encounter any problems or have suggestions for improvement.
