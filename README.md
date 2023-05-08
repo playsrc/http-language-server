@@ -1,4 +1,30 @@
-# HTTP Language Server
+<h1 align="center">
+    <img
+        src=".github/code-block.svg"
+        alt=""
+        width="50"
+        height="50"
+        align="center"
+    />
+    HTTP Language Server
+</h1>
+
+<div align="center">
+    <img
+        src="https://img.shields.io/badge/python-262626?style=for-the-badge&logo=python&logoColor=ffdd54"
+        alt="Python"
+    />
+    <img
+        src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"
+        alt="Typescript"
+    />
+    <img
+        src="https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA"
+        alt="GitHub Sponsors"
+    />
+</div>
+
+<br>
 
 > **Warning**
 > This project is under development.
